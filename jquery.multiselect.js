@@ -33,7 +33,7 @@
 		return this.each( function() {
 			var element	= this;
 
-			//$(element).hide();
+			$(element).hide();
 
 			if (_options) {
 				$.extend(options, _options);
