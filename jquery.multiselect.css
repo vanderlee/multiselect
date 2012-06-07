@@ -7,12 +7,12 @@
 */
 
 .multiselect-select {
+	display:				inline-block;
 	border:					solid 1px ButtonShadow;
 	overflow:				hidden;
 	overflow-y:				scroll;
 	margin:					.8em .2em 1em .2em;
 	font-family:			sans-serif;
-	font-size:				.8em;
 
 	-webkit-touch-callout:	none;
 	-webkit-user-select:	none;
