@@ -14,20 +14,20 @@
 (function ($) {
 	"use strict";
 
-	var set_state	= function(state, option, checkbox, item) {
-						option.attr('selected', state);
-						checkbox.attr('checked', state);
-						item[state? 'addClass' : 'removeClass']('multiselect-selected');
-					}
-	,	is_numeric	= function(value) {
-						return (typeof(value) === 'number' || typeof(value) === 'string') && value !== '' && !isNaN(value);
-					}
+	var setItemState =	function(state, option, checkbox, container) {
+							option.attr('selected', state);
+							checkbox.attr('checked', state);
+							container[state? 'addClass' : 'removeClass']('multiselect-selected');
+						},
+		is_numeric =	function(value) {
+							return (typeof(value) === 'number' || typeof(value) === 'string') && value !== '' && !isNaN(value);
+						}
 
 	$.fn.multiselect = function(_options) {
 		var options = {
-			width:			undefined	// undefined, 'fit', numeric or css-unit
-		,	height:			undefined	// undefined, numeric or css-unit
-		,	showOption:		undefined	// callback(text, value, index) for each option
+			width:			undefined,	// undefined, 'fit', numeric or css-unit
+			height:			undefined,	// undefined, numeric or css-unit
+			showOption:		undefined	// callback(text, value, index) for each option
 		}
 
 		return this.each( function() {
@@ -51,34 +51,71 @@
 			var select = $('<div tabindex="0" class="multiselect-select" style="height:'+height+';width:'+width+';"/>')
 							.insertAfter(element);
 
+			var lastClickedIndex	= null;
+			var lastState			= null;
+
+			var items = [];
+
+			$(window).mouseup( function(event) {
+				lastState	 = null;
+			});
+
 			$('option', element).each( function(index, option) {
-				var handleClick = function(event) {
+				var handleMousedown = function(event) {
 					event.stopPropagation();
 
-					if (!$(option).is(':disabled')) {
-						set_state(!item.hasClass('multiselect-selected'), $(option), checkbox, item);
+					var range = null;
+					if (event.shiftKey) {
+						range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
+					} else {
+						range = [item];
+					}
 
-						$(option).trigger('change');
+					lastState = !item.container.hasClass('multiselect-selected');
+
+					$.each(range, function() {
+						if (!this.container.is('.multiselect-disabled')) {
+							setItemState(lastState, this.option, this.checkbox, this.container);
+						};
+					});
+
+					select.trigger('change');
+
+					lastClickedIndex = index;
+				};
+
+				var handleMouseenter = function(event) {
+					if (event.which == 1) {
+						if (lastState !== null) {
+							setItemState(lastState, item.option, item.checkbox, item.container);
+						}
 					}
 				};
 
-				var selected	= $(option).is(':selected');
-				var disabled	= $(option).is(':disabled');
+				var item = {
+					option:		$(option)
+				};
 
-				var item		= $('<div class="multiselect-option'+(selected ? ' multiselect-selected' : '')+(disabled ? ' multiselect-disabled' : '')+'"/>')
-									.click(handleClick)
-									.appendTo(select);
+				var selected	= item.option.is(':selected');
+				var disabled	= item.option.is(':disabled');
 
-				var checkbox	= $('<input type="checkbox"'+(selected ? ' checked="checked"' : '')+(disabled ? ' disabled="disabled"' : '')+'/>')
-									.click(handleClick)
-									.appendTo(item);
+				item.container	= $('<div class="multiselect-option'+(selected ? ' multiselect-selected' : '')+(disabled ? ' multiselect-disabled' : '')+'"/>')
+									.mousedown(handleMousedown)
+									.mouseenter(handleMouseenter)
+									.appendTo(select)
+									;
+				item.checkbox	= $('<input type="checkbox"'+(selected ? ' checked="checked"' : '')+(disabled ? ' disabled="disabled"' : '')+'/>')
+									.mousedown(handleMousedown)
+									.mouseenter(handleMouseenter)
+									.appendTo(item.container);
 
-				var text		= $(option).text();
+				var text		= item.option.text();
 				if (typeof options.showOption == 'function') {
-					text = options.showOption(text, $(option).val(), index);
+					text = options.showOption(text, item.option.val(), index);
 				}
-				var label		= $('<span>'+text+'</span>')
-									.appendTo(item);
+				$('<span>'+text+'</span>').appendTo(item.container);
+
+				items.push(item);
 			});
 		});
 	};

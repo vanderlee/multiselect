@@ -7,6 +7,8 @@ Features
 --------
 0.	Standard look & feel; tries to match original multiple select.
 0.	Click on any part of the item to select or deselect.
+0.	(De)select by dragging with mouse button down.
+0.	(De)select ranges by mouse click - shift+click.
 0.	Respects selected state.
 0.	Respects disabled state.
 0.	Readout original multiple select as normal (using .val()).
