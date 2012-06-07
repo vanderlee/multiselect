@@ -50,7 +50,7 @@
 
 			var handleMouseenter = function(event, index) {
 				if (event.which == 1) {
-					if (lastState !== null) {
+					if (lastState !== null && !items[index].container.is('.multiselect-disabled')) {
 						setItemState(lastState, items[index]);
 					}
 				}
