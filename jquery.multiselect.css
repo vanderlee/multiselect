@@ -31,11 +31,18 @@
 	margin:					.2em;
 }
 
-.multiselect-option.multiselect-selected {
-	background-color:		GrayText;
-	color:					HighlightText;
+.multiselect-selected {
+	background-color:		gray;
+	color:					white;
 }
 
-:focus .multiselect-option.multiselect-selected {
-	background-color:		Highlight;
+.multiselect-disabled {
+	color:					gray;
+}
+
+.multiselect-selected.multiselect-disabled {
+	color:					silver;
+}
+:focus .multiselect-selected {
+	background-color:		Highlight;	/* system-dependant */
 }

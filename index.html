@@ -17,7 +17,10 @@
 				});
 
 				$('#demo-2').multiselect({
-					width:	'10em'
+					width:		'10em'
+				,	showOption:	function(text, value, index) {
+									return '<b>'+index+'</b> '+text+' <i><small>('+value+')</small></i>';
+								}
 				});
 
 				$('#demo').change( function() {
@@ -32,8 +35,8 @@
 			<option value="one">One</option>
 			<option value="two" selected="selected">Two</option>
 			<option value="three">Three</option>
-			<option value="four">Four</option>
-			<option value="five">Five</option>
+			<option value="four" disabled="disabled">Four</option>
+			<option value="five" disabled="disabled" selected="selected">Five</option>
 			<option value="six">Six</option>
 			<option value="seven">Seven</option>
 			<option value="eight">Eight</option>
