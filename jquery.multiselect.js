@@ -14,10 +14,10 @@
 (function ($) {
 	"use strict";
 
-	var setItemState =	function(state, option, checkbox, container) {
-							option.attr('selected', state);
-							checkbox.attr('checked', state);
-							container[state? 'addClass' : 'removeClass']('multiselect-selected');
+	var setItemState =	function(state, item) {
+							item.option.attr('selected', state);
+							item.checkbox.attr('checked', state);
+							item.container[state? 'addClass' : 'removeClass']('multiselect-selected');
 						},
 		is_numeric =	function(value) {
 							return (typeof(value) === 'number' || typeof(value) === 'string') && value !== '' && !isNaN(value);
@@ -39,6 +39,45 @@
 				$.extend(options, _options);
 			}
 
+			var items				= [];
+
+			var lastClickedIndex	= null;
+			var lastState			= null;
+
+			$(window).mouseup(function(event) {
+				lastState			= null;
+			});
+
+			var handleMouseenter = function(event, index) {
+				if (event.which == 1) {
+					if (lastState !== null) {
+						setItemState(lastState, items[index]);
+					}
+				}
+			};
+
+			var handleMousedown = function(event, index) {
+				event.stopPropagation();
+
+				var range = null;
+				if (event.shiftKey) {
+					range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
+				} else {
+					range = [items[index]];
+				}
+
+				lastState			= !items[index].container.hasClass('multiselect-selected');
+				lastClickedIndex	= index;
+
+				$.each(range, function() {
+					if (!this.container.is('.multiselect-disabled')) {
+						setItemState(lastState, this);
+					};
+				});
+
+				select.trigger('change');
+			};
+
 			var width	= options.width == 'fit'?		($(element).width()+16)+'px'
 						: is_numeric(options.width)?	options.width+'px'
 						: options.width?				options.width
@@ -51,62 +90,30 @@
 			var select = $('<div tabindex="0" class="multiselect-select" style="height:'+height+';width:'+width+';"/>')
 							.insertAfter(element);
 
-			var lastClickedIndex	= null;
-			var lastState			= null;
-
-			var items = [];
-
-			$(window).mouseup( function(event) {
-				lastState	 = null;
-			});
-
-			$('option', element).each( function(index, option) {
-				var handleMousedown = function(event) {
-					event.stopPropagation();
-
-					var range = null;
-					if (event.shiftKey) {
-						range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
-					} else {
-						range = [item];
-					}
-
-					lastState = !item.container.hasClass('multiselect-selected');
-
-					$.each(range, function() {
-						if (!this.container.is('.multiselect-disabled')) {
-							setItemState(lastState, this.option, this.checkbox, this.container);
-						};
-					});
-
-					select.trigger('change');
-
-					lastClickedIndex = index;
+			$('option', element).each(function(index, option) {
+				var mouseenter = function(event) {
+					handleMouseenter(event, index);
 				};
 
-				var handleMouseenter = function(event) {
-					if (event.which == 1) {
-						if (lastState !== null) {
-							setItemState(lastState, item.option, item.checkbox, item.container);
-						}
-					}
+				var mousedown = function(event) {
+					handleMousedown(event, index);
 				};
 
 				var item = {
-					option:		$(option)
+					option:		$(option),					// original option
+					selected:	$(option).is(':selected'),	// initial state
+					disabled:	$(option).is(':disabled')	// initial state
 				};
 
-				var selected	= item.option.is(':selected');
-				var disabled	= item.option.is(':disabled');
-
-				item.container	= $('<div class="multiselect-option'+(selected ? ' multiselect-selected' : '')+(disabled ? ' multiselect-disabled' : '')+'"/>')
-									.mousedown(handleMousedown)
-									.mouseenter(handleMouseenter)
+				item.container	= $('<div class="multiselect-option'+(item.selected ? ' multiselect-selected' : '')+(item.disabled ? ' multiselect-disabled' : '')+'"/>')
+									.mousedown(mousedown)
+									.mouseenter(mouseenter)
 									.appendTo(select)
 									;
-				item.checkbox	= $('<input type="checkbox"'+(selected ? ' checked="checked"' : '')+(disabled ? ' disabled="disabled"' : '')+'/>')
-									.mousedown(handleMousedown)
-									.mouseenter(handleMouseenter)
+				item.checkbox	= $('<input type="checkbox"'+(item.selected ? ' checked="checked"' : '')+(item.disabled ? ' disabled="disabled"' : '')+'/>')
+									.click(function(event) {
+										return false;
+									})
 									.appendTo(item.container);
 
 				var text		= item.option.text();
@@ -115,7 +122,7 @@
 				}
 				$('<span>'+text+'</span>').appendTo(item.container);
 
-				items.push(item);
+				items[index] = item;
 			});
 		});
 	};
