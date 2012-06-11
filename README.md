@@ -14,6 +14,7 @@ Features
 0.	Readout original multiple select as normal (using .val()).
 0.	Rich rendering of options possible.
 0.	Triggers change() on original multiple select.
+0.	Recognizes form reset.
 
 Usage
 -----
