@@ -90,6 +90,7 @@
 						:								$(element).height()+'px'
 						;
 			var select = $('<div tabindex="0" class="multiselect-select" style="height:'+height+';width:'+width+';"/>')
+							.on('selectstart', function(event) { return false; })
 							.insertAfter(element);
 
 			$('option', element).each(function(index, option) {
