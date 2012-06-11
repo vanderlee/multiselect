@@ -57,25 +57,27 @@
 			};
 
 			var handleMousedown = function(event, index) {
-				event.stopPropagation();
+				if (event.which == 1) {
+					event.stopPropagation();
 
-				var range = null;
-				if (event.shiftKey) {
-					range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
-				} else {
-					range = [items[index]];
+					var range = null;
+					if (event.shiftKey) {
+						range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
+					} else {
+						range = [items[index]];
+					}
+
+					lastState			= !items[index].container.hasClass('multiselect-selected');
+					lastClickedIndex	= index;
+
+					$.each(range, function() {
+						if (!this.container.is('.multiselect-disabled')) {
+							setItemState(lastState, this);
+						};
+					});
+
+					select.trigger('change');
 				}
-
-				lastState			= !items[index].container.hasClass('multiselect-selected');
-				lastClickedIndex	= index;
-
-				$.each(range, function() {
-					if (!this.container.is('.multiselect-disabled')) {
-						setItemState(lastState, this);
-					};
-				});
-
-				select.trigger('change');
 			};
 
 			var width	= options.width == 'fit'?		($(element).width()+16)+'px'
@@ -123,6 +125,14 @@
 				$('<span>'+text+'</span>').appendTo(item.container);
 
 				items[index] = item;
+			});
+
+			// Handle form reset
+			$(element).closest('form').on('reset', function() {
+				// set only this, not actual select?
+				$.each(items, function(index, item) {
+					setItemState(item.selected, item);
+				});
 			});
 		});
 	};
