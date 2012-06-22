@@ -80,7 +80,7 @@
 				}
 			};
 
-			var width	= options.width == 'fit'?		($(element).width()+16)+'px'
+			var width	= options.width == 'fit'?		($(element).width()+24)+'px'
 						: is_numeric(options.width)?	options.width+'px'
 						: options.width?				options.width
 						:								$(element).width()+'px'
