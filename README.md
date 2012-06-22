@@ -24,7 +24,7 @@ Usage
 
 Options
 -------
-*	width
+*	width			undefined
 
 	undefined (default): match original component exactly.
 
@@ -34,13 +34,17 @@ Options
 
 	css-units: use the specified css-units as-is.
 
-*	height
+*	height			undefined
 
 	undefined (default): match original component exactly.
 
 	numeric: use the specified amount of pixels.
 
 	css-units: use the specified css-units as-is.
+
+*	markChange		false
+
+	if true, options are marked with semi-transparency when unchanged.
 
 Events
 ------

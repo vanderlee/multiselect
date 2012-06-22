@@ -21,9 +21,10 @@
 				,	showOption:	function(text, value, index) {
 									return '<b>'+index+'</b> '+text+' <i><small>('+value+')</small></i>';
 								}
+				,	markChange:	true
 				});
 
-				$('#demo').change( function() {
+				$('#demo-2').change( function() {
 					console.log('change');
 					console.debug($(this).val());
 				});
@@ -45,6 +46,8 @@
 				<option value="ten">Ten</option>
 			</select>
 
+			<hr/>
+
 			<select multiple="multiple" name="multiple-choice-2" id="demo-2" size="6">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
@@ -57,7 +60,9 @@
 				<option value="nine">Nine</option>
 				<option value="ten">Ten</option>
 			</select>
+
 			<hr/>
+
 			<button type="reset">Reset</button>
 		</form>
     </body>

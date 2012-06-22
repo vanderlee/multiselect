@@ -41,6 +41,11 @@
 	color:					gray;
 }
 
+.multiselect-unchanged input {
+	opacity:				.33;
+	filter:					alpha(opacity=33);
+}
+
 .multiselect-selected.multiselect-disabled {
 	color:					silver;
 }
