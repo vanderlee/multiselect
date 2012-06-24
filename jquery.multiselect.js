@@ -31,8 +31,9 @@
 		var options = {
 			width:			undefined,	// undefined, 'fit', numeric or css-unit
 			height:			undefined,	// undefined, numeric or css-unit
-			showOption:		undefined,	// callback(text, value, index) for each option
-			markChange:		false
+			markChange:		false,
+
+			showOption:		undefined	// callback(text, value, index) for each option
 		}
 
 		return this.each( function() {
