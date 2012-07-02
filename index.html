@@ -12,9 +12,7 @@
 
 		<script>
 			$( function() {
-				$('#demo').multiselect({
-					width: 'fit'
-				});
+				$('#demo').multiselect();
 
 				$('#demo-2').multiselect({
 					width:		'10em'
@@ -27,6 +25,12 @@
 				$('#demo-2').change( function() {
 					console.log('change');
 					console.debug($(this).val());
+				});
+
+				$('.plain').multiselect();
+
+				$('.single').multiselect({
+					height: '6em'
 				});
 			});
 		</script>
@@ -49,6 +53,66 @@
 			<hr/>
 
 			<select multiple="multiple" name="multiple-choice-2" id="demo-2" size="6">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" min="1" max="3" size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" min="1" max="1" "size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" max="1" "size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select class="single">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
 				<option value="three">Three</option>
