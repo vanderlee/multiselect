@@ -177,7 +177,7 @@
 									.mouseenter(mouseenter)
 									.appendTo(select)
 									;
-				item.checkbox	= $('<input type="checkbox"/>')
+				item.checkbox	= $('<input type="'+(max <= 1 ? 'radio' : 'checkbox')+'"/>')
 									.attr('disabled', item.disabled)
 									.click(function(event) { return false; })
 									.appendTo(item.container);
