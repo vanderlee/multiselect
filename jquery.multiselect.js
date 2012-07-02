@@ -74,6 +74,7 @@
 					max = options.max;
 					break;
 			}
+			max = Math.max(max, min);
 
 			var currentIndex	= null;
 			var currentState	= null;
