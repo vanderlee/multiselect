@@ -54,11 +54,11 @@
 				case $(element).is('[min]'):
 					min = $(element).attr('min');
 					break;
-				case $(element).is(':not([multiple])'):
-					min = 1;
-					break;
 				case typeof options.min !== 'undefined':
 					min = options.min;
+					break;
+				case $(element).is(':not([multiple])'):
+					min = 1;
 					break;
 			}
 
@@ -67,11 +67,11 @@
 				case $(element).is('[max]'):
 					max = $(element).attr('max');
 					break;
-				case $(element).is(':not([multiple])'):
-					max = 1;
-					break;
 				case typeof options.max !== 'undefined':
 					max = options.max;
+					break;
+				case $(element).is(':not([multiple])'):
+					max = 1;
 					break;
 			}
 			max = Math.max(max, min);
@@ -88,7 +88,7 @@
 					$.each(items, function() {
 						if (!this.container.is('.multiselect-disabled') && this.container.is('.multiselect-selected')) {
 							set_state(false, this, options);
-						};
+						}
 					});
 				}
 
@@ -126,7 +126,7 @@
 						range = [items[index]];
 					}
 
-					currentState		= !items[index].container.hasClass('multiselect-selected');
+					currentState	= !items[index].container.hasClass('multiselect-selected');
 					currentIndex	= index;
 
 					var changed = false;
@@ -134,7 +134,7 @@
 						if (!this.container.is('.multiselect-disabled') && allowState(currentState)) {
 							set_state(currentState, this, options);
 							changed = true;
-						};
+						}
 					});
 
 					if (changed) {
@@ -174,16 +174,18 @@
 
 				item.container	= $('<div class="multiselect-option"/>')
 									[item.disabled? 'addClass' : 'removeClass']('multiselect-disabled')
+									[item.selected? 'addClass' : 'removeClass']('multiselect-selected')
 									.mousedown(mousedown)
 									.mouseenter(mouseenter)
 									.appendTo(select)
 									;
 				item.checkbox	= $('<input type="'+(max <= 1 ? 'radio' : 'checkbox')+'"/>')
 									.attr('disabled', item.disabled)
-									.click(function(event) { return false; })
+									.attr('checked', item.selected)
+									.click(function(event) {
+										event.preventDefault();
+										return false; })
 									.appendTo(item.container);
-
-				set_state(item.selected, item, options);
 
 				var text		= item.option.text();
 				if (typeof options.showOption == 'function') {
