@@ -183,7 +183,7 @@
 									.attr('disabled', item.disabled)
 									.attr('checked', item.selected)
 									.click(function(event) {
-										event.preventDefault();
+										$(this).attr('checked', $(option).is(':selected'));
 										return false; })
 									.appendTo(item.container);
 
