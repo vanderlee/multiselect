@@ -1,5 +1,9 @@
 Multiselect
 ===========
+Version v1.1
+
+Copyright &copy; 2012-2014 Martijn van der Lee (http://martijn.vanderlee.com).
+MIT Open Source license applies.
 
 Simple multiple select drop-in replacement with checkboxes.
 
@@ -17,76 +21,86 @@ Features
 *	Readout original multiple select as normal (using .val()).
 *	Works for single selects as well.
 
-Usage
------
-0.	Just create a standard HTML multiple select.
+Download
+--------
+jQuery v1.6.0 or higher required.
+
+Current version: https://github.com/vanderlee/multiselect/archive/master.zip
+
+Sourcecode on Github: https://github.com/vanderlee/multiselect
+
+Documentation
+=============
+'.multiselect(options)'
+-----------------------
 0.	Include the multiselect .css and .js files.
-0.	Call jQuery multiselect() on any multiple select you want to change.
+0.	Create a standard HTML multiple select element.
+0.	Call `.multiselect()` on the element. Options optional.
 
-Options
--------
-*	width			undefined
+### Options
 
-	undefined (default): match original component exactly.
+-	width			undefined
 
-	'fit': match original component width plus additional space to fit the checkbox.
+>	undefined (default): match original component exactly.
 
-	numeric: use the specified amount of pixels.
+>	'fit': match original component width plus additional space to fit the checkbox.
 
-	css-units: use the specified css-units as-is.
+>	numeric: use the specified amount of pixels.
 
-*	height			undefined
+>	css-units: use the specified css-units as-is.
 
-	undefined (default): match original component exactly.
+-	height			undefined
 
-	numeric: use the specified amount of pixels.
+>	undefined (default): match original component exactly.
 
-	css-units: use the specified css-units as-is.
+>	numeric: use the specified amount of pixels.
 
-*	markChange		false
+>	css-units: use the specified css-units as-is.
 
-	if true, options are marked with semi-transparency when unchanged.
+-	markChange		false
 
-*	min				null
+>	if true, options are marked with semi-transparency when unchanged.
 
-	if specified, you cannot select less than the specified limit. Initially,
+-	min				null
+
+>	if specified, you cannot select less than the specified limit. Initially,
 	less options may be selected, so make sure you doublecheck any forms that
 	rely on this limit.
 
-*	max				null
+-	max				null
 
-	if specified, you cannot select more than the specified limit. Initially,
+>	if specified, you cannot select more than the specified limit. Initially,
 	more options may be selected, so make sure you doublecheck any forms that
 	rely on this limit.
 
-Events
-------
-*	showOption
+### Events
 
-	Callback function that lets you provide rich text or HTML for an option.
+-	showOption
 
-	The callback provides the original text, option value and index number of
+>	Callback function that lets you provide rich text or HTML for an option.
+
+>	The callback provides the original text, option value and index number of
 	the option.
 
-HTML attributes
----------------
-*	multiple="multiple"
+### HTML attributes
 
-	If specified, by default you can select anywhere from zero to all options.
+-	multiple="multiple"
 
-	If not specified, a single select is assumed where you can only select
+>	If specified, by default you can select anywhere from zero to all options.
+
+>	If not specified, a single select is assumed where you can only select
 	exactly one option.
 
-*	min="<number>"
+-	min="<number>"
 
-	If specified, user cannot select less than the specified number of options.
+>	If specified, user cannot select less than the specified number of options.
 
-	This attribute overwrites the min option and/or multiple="multiple"
+>	This attribute overwrites the min option and/or multiple="multiple"
 	attribute.
 
-*	max="<number>"
+-	max="<number>"
 
-	If specified, user cannot select more than the specified number of options.
+>	If specified, user cannot select more than the specified number of options.
 
-	This attribute overwrites the min option and/or multiple="multiple"
+>	This attribute overwrites the min option and/or multiple="multiple"
 	attribute.

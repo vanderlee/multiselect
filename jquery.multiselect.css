@@ -30,13 +30,13 @@
 }
 
 .multiselect-option input {
-	vertical-align:			-.2em;
+	vertical-align:			-.1em;
 	margin:					.2em .2em;
 }
 
 .multiselect-selected {
-	background-color:		gray;
-	color:					white;
+	background-color:		ThreeDFace;
+	color:					ButtonText;
 }
 
 .multiselect-disabled {
@@ -49,8 +49,17 @@
 }
 
 .multiselect-selected.multiselect-disabled {
-	color:					silver;
+	color:					#666;
 }
+
 :focus .multiselect-selected {
-	background-color:		Highlight;	/* system-dependant */
+	background-color:		Highlight;	/* Works for IE, FireFox and Safari */
+	color:					white;
+}
+
+/* Highlight color workaround for Webkit and Opera */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	:focus .multiselect-selected {
+		background-color:		rgb(77, 144, 254);
+	}
 }
