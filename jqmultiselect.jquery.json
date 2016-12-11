@@ -1,6 +1,6 @@
 {
 	"name": "jqmultiselect",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"title": "Vanderlee MultiSelect",
 	"description": "Nicer multiple select input with checkboxes. Also works for single select inputs",
 	"author": {

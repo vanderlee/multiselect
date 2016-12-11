@@ -9,6 +9,12 @@
 
 		<link href="jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 		<script src="jquery.multiselect.js "></script>
+		
+		<style>
+			#wide {
+				width:	200px;
+			}
+		</style>
 
 		<script>
 			$( function() {
@@ -32,6 +38,8 @@
 				$('.single').multiselect({
 					height: '6em'
 				});
+				
+				$('#wide').multiselect();
 			});
 		</script>
     </head>
@@ -97,7 +105,7 @@
 
 			<hr/>
 
-			<select multiple="multiple" name="single-choice" class="plain" min="1" max="1" "size="4">
+			<select multiple="multiple" name="single-choice" class="plain" min="1" max="1" size="4">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
 				<option value="three">Three</option>
@@ -112,7 +120,7 @@
 
 			<hr/>
 
-			<select multiple="multiple" name="single-choice" class="plain" max="1" "size="4">
+			<select multiple="multiple" name="single-choice" class="plain" max="1" size="4">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
 				<option value="three">Three</option>
@@ -141,7 +149,22 @@
 			</select>
 
 			<hr/>
+			
+			<select id="wide" size="6" multiple>
+				<option value="one">One for the money, two for the show</option>
+				<option value="two" selected="selected">Two people make a pair</option>
+				<option value="three">Three is a crowd, and who doesn't love a crowd?</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>			
 
+			<hr/>
+			
 			<button type="reset">Reset</button>
 		</form>
     </body>

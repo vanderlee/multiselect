@@ -1,8 +1,8 @@
 Multiselect
 ===========
-Version v1.1
+Version v1.2.0
 
-Copyright &copy; 2012-2014 Martijn van der Lee (http://martijn.vanderlee.com).
+Copyright &copy; 2012-2016 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
 
 Simple multiple select drop-in replacement with checkboxes.

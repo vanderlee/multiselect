@@ -4,7 +4,7 @@
 /*
  * Multiselect
  *
- * Copyright (c) 2012-2014 Martijn W. van der Lee
+ * Copyright (c) 2012-2016 Martijn W. van der Lee
  * Licensed under the MIT.
  *
  * More user-friendly multiple selects with extra features.
@@ -140,21 +140,23 @@
 							$(element).trigger('change');
 						}
 					}
-				};
+				},
 
-			var width	= options.width === 'exact'?	$(element).width()+'px'
-						: is_numeric(options.width)?	options.width+'px'
-						: options.width?				options.width
-						:								($(element).width()+24)+'px'
-						;
-			var height	= options.height === 'exact'?	$(element).height()+'px'
-						: is_numeric(options.height)?	options.height+'px'
-						: options.height?				options.height
-						:								$(element).height()+'px'
-						;
-			var select = $('<div tabindex="0" class="multiselect-select" style="height:'+height+';width:'+width+';"/>')
+				width	= options.width === 'exact' ?	$(element).width() + 'px'
+						: is_numeric(options.width) ?	options.width + 'px'
+						: options.width ?				options.width
+						:								($(element).width() + 24)+'px',
+						
+				height	= options.height === 'exact' ?	$(element).height() + 'px'
+						: is_numeric(options.height) ?	options.height + 'px'
+						: options.height ?				options.height
+						:								$(element).height() + 'px',
+						
+				select = $('<div tabindex="0" class="multiselect-select" style="height:' + height + ';width:' + width + '"/>')
 							.bind('selectstart', function(event) { return false; })
-							.insertAfter(element);
+							.insertAfter(element),
+					
+				optionlist = $('<div class="multiselect-options"/>').appendTo(select);
 
 			$('option', element).each(function(index, option) {
 				var mouseenter	= function(event) {
@@ -174,8 +176,7 @@
 									[item.selected? 'addClass' : 'removeClass']('multiselect-selected')
 									.mousedown(mousedown)
 									.mouseenter(mouseenter)
-									.appendTo(select)
-									;
+									.appendTo(optionlist);
 				item.checkbox	= $('<input type="'+(max <= 1 ? 'radio' : 'checkbox')+'"/>')
 									.prop('disabled', item.disabled)
 									.click(function(event) {

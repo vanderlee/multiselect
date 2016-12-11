@@ -1,11 +1,3 @@
-/*
-    Document   : jquery.multiselect.css
-    Created on : 6-jun-2012, 21:16:56
-    Author     : Martijn
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
 .multiselect-select {
 	display:				inline-block;
 	border:					solid 1px ButtonShadow;
@@ -24,6 +16,11 @@
 	user-select:			none;
 }
 
+.multiselect-options {
+	display:				table;
+	width:					100%;
+}
+
 .multiselect-option {
 	white-space:			nowrap;
 	cursor:					default;
@@ -31,7 +28,7 @@
 
 .multiselect-option input {
 	vertical-align:			-.1em;
-	margin:					.2em .2em;
+	margin:					.15em .15em;
 }
 
 .multiselect-selected {
@@ -52,7 +49,7 @@
 	color:					#666;
 }
 
-:focus .multiselect-selected {
+.multiselect-select:focus .multiselect-selected {
 	background-color:		Highlight;	/* Works for IE, FireFox and Safari */
 	color:					white;
 }
