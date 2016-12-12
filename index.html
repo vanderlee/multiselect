@@ -5,33 +5,61 @@
 
         <title>jQuery Multiselect</title>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js "></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js "></script>
 
 		<link href="jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 		<script src="jquery.multiselect.js "></script>
+		
+		<style>
+			#wide {
+				width:	200px;
+			}
+		</style>
 
 		<script>
 			$( function() {
-				$('#demo').multiselect({
-					width: 'fit'
-				});
+				$('#demo').multiselect();
 
 				$('#demo-2').multiselect({
 					width:		'10em'
 				,	showOption:	function(text, value, index) {
 									return '<b>'+index+'</b> '+text+' <i><small>('+value+')</small></i>';
 								}
+				,	markChange:	true
 				});
 
-				$('#demo').change( function() {
+				$('#demo-2').change( function() {
 					console.log('change');
 					console.debug($(this).val());
 				});
+
+				$('.plain').multiselect();
+
+				$('.single').multiselect({
+					height: '6em'
+				});
+				
+				$('#wide').multiselect();
 			});
 		</script>
     </head>
     <body>
 		<form>
+			<select multiple="multiple" size="6">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four" disabled="disabled">Four</option>
+				<option value="five" disabled="disabled" selected="selected">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
 			<select multiple="multiple" name="multiple-choice" id="demo" size="6">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
@@ -45,6 +73,8 @@
 				<option value="ten">Ten</option>
 			</select>
 
+			<hr/>
+
 			<select multiple="multiple" name="multiple-choice-2" id="demo-2" size="6">
 				<option value="one">One</option>
 				<option value="two" selected="selected">Two</option>
@@ -57,7 +87,84 @@
 				<option value="nine">Nine</option>
 				<option value="ten">Ten</option>
 			</select>
+
 			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" min="1" max="3" size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" min="1" max="1" size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select multiple="multiple" name="single-choice" class="plain" max="1" size="4">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+
+			<select class="single">
+				<option value="one">One</option>
+				<option value="two" selected="selected">Two</option>
+				<option value="three">Three</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>
+
+			<hr/>
+			
+			<select id="wide" size="6" multiple>
+				<option value="one">One for the money, two for the show</option>
+				<option value="two" selected="selected">Two people make a pair</option>
+				<option value="three">Three is a crowd, and who doesn't love a crowd?</option>
+				<option value="four">Four</option>
+				<option value="five">Five</option>
+				<option value="six">Six</option>
+				<option value="seven">Seven</option>
+				<option value="eight">Eight</option>
+				<option value="nine">Nine</option>
+				<option value="ten">Ten</option>
+			</select>			
+
+			<hr/>
+			
 			<button type="reset">Reset</button>
 		</form>
     </body>

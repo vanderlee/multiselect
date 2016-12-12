@@ -1,18 +1,12 @@
-/*
-    Document   : jquery.multiselect.css
-    Created on : 6-jun-2012, 21:16:56
-    Author     : Martijn
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
 .multiselect-select {
+	display:				inline-block;
 	border:					solid 1px ButtonShadow;
-	overflow:				hidden;
+	overflow:				auto;
 	overflow-y:				scroll;
 	margin:					.8em .2em 1em .2em;
 	font-family:			sans-serif;
-	font-size:				.8em;
+	background-color:		white;
+	font-size:				13px;
 
 	-webkit-touch-callout:	none;
 	-webkit-user-select:	none;
@@ -22,27 +16,47 @@
 	user-select:			none;
 }
 
+.multiselect-options {
+	display:				table;
+	width:					100%;
+}
+
 .multiselect-option {
 	white-space:			nowrap;
+	cursor:					default;
 }
 
 .multiselect-option input {
-	vertical-align:			-.2em;
-	margin:					.2em;
+	vertical-align:			-.1em;
+	margin:					.15em .15em;
 }
 
 .multiselect-selected {
-	background-color:		gray;
-	color:					white;
+	background-color:		ThreeDFace;
+	color:					ButtonText;
 }
 
 .multiselect-disabled {
 	color:					gray;
 }
 
-.multiselect-selected.multiselect-disabled {
-	color:					silver;
+.multiselect-unchanged input {
+	opacity:				.33;
+	filter:					alpha(opacity=33);
 }
-:focus .multiselect-selected {
-	background-color:		Highlight;	/* system-dependant */
+
+.multiselect-selected.multiselect-disabled {
+	color:					#666;
+}
+
+.multiselect-select:focus .multiselect-selected {
+	background-color:		Highlight;	/* Works for IE, FireFox and Safari */
+	color:					white;
+}
+
+/* Highlight color workaround for Webkit and Opera */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	:focus .multiselect-selected {
+		background-color:		rgb(77, 144, 254);
+	}
 }

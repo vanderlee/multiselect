@@ -1,0 +1,36 @@
+{
+	"name": "jqmultiselect",
+	"version": "1.2.0",
+	"title": "Vanderlee MultiSelect",
+	"description": "Nicer multiple select input with checkboxes. Also works for single select inputs",
+	"author": {
+			"name": "Martijn van der Lee",
+			"url": "http://martijn.vanderlee.com",
+			"email": "martijn@vanderlee.com"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vanderlee/multiselect.git"
+	},
+	"dependencies": {
+		"jquery": ">=1.6.0"
+	},
+	"homepage": "http://vanderlee.github.com/multiselect",
+	"demo": "http://vanderlee.github.com/multiselect",
+	"download":"https://github.com/vanderlee/multiselect",
+	"bugs": "https://github.com/vanderlee/multiselect/issues",
+	"maintainers": [
+		{
+			"name": "Martijn van der Lee",
+			"url": "http://martijn.vanderlee.com",
+			"email": "martijn@vanderlee.com"
+		}
+	],
+	"keywords": ["multiselect", "select", "input", "single", "multiple", "checkbox", "radiobutton"]
+}
