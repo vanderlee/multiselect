@@ -56,7 +56,7 @@
 
 /* Highlight color workaround for Webkit and Opera */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	:focus .multiselect-selected {
+	.multiselect-select:focus .multiselect-selected {
 		background-color:		rgb(77, 144, 254);
 	}
 }
