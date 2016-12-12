@@ -47,49 +47,7 @@
 				$.extend(options, _options);
 			}
 
-			var items				= [];
-
-			var lastClickedIndex	= null;
-			var lastState			= null;
-
-			$(window).mouseup(function(event) {
-				lastState			= null;
-			});
-
-			var handleMouseenter = function(event, index) {
-				if (event.which == 1) {
-					if (lastState !== null && !items[index].container.is('.multiselect-disabled')) {
-						setItemState(lastState, items[index]);
-					}
-				}
-			};
-
-			var handleMousedown = function(event, index) {
-				if (event.which == 1) {
-					event.stopPropagation();
-
-					var range = null;
-					if (event.shiftKey) {
-						range = items.slice(Math.min(lastClickedIndex, index), Math.max(lastClickedIndex, index) + 1);
-					} else {
-						range = [items[index]];
-					}
-
-					lastState			= !items[index].container.hasClass('multiselect-selected');
-					lastClickedIndex	= index;
-
-					$.each(range, function() {
-						if (!this.container.is('.multiselect-disabled')) {
-							setItemState(lastState, this);
-						};
-					});
-
-					select.trigger('change');
-				}
-			};
-
 			var items			= [];
-
 
 			var min = 0;
 			switch (true) {
@@ -135,22 +93,8 @@
 						});
 					}
 
-
-
-					text = options.showOption(text, item.option.val(), index);
-				}
-				$('<span>'+text+'</span>').appendTo(item.container);
-
-				items[index] = item;
-			});
-
-			// Handle form reset
 					var selected = $('.multiselect-selected', select).length;
-				});
-			});
-		});
-	};
-})( jQuery );
+
 					if (state) {
 						if (selected + 1 > max) {
 							return false;
@@ -173,3 +117,91 @@
 				handleMousedown		= function(event, index) {
 					if (event.which === 1) {
 						event.stopPropagation();
+
+						var range = null;
+						if (event.shiftKey) {
+							range = items.slice(Math.min(currentIndex, index), Math.max(currentIndex, index) + 1);
+						} else {
+							range = [items[index]];
+						}
+
+						currentState	= !items[index].container.hasClass('multiselect-selected');
+						currentIndex	= index;
+
+						var changed = false;
+						$.each(range, function() {
+							if (!this.container.is('.multiselect-disabled') && allowState(currentState)) {
+								set_state(currentState, this, options);
+								changed = true;
+							}
+						});
+
+						if (changed) {
+							$(element).trigger('change');
+						}
+					}
+				},
+
+				width	= options.width === 'exact' ?	$(element).width() + 'px'
+						: is_numeric(options.width) ?	options.width + 'px'
+						: options.width ?				options.width
+						:								($(element).width() + 24)+'px',
+						
+				height	= options.height === 'exact' ?	$(element).height() + 'px'
+						: is_numeric(options.height) ?	options.height + 'px'
+						: options.height ?				options.height
+						:								$(element).height() + 'px',
+						
+				select = $('<div tabindex="0" class="multiselect-select" style="height:' + height + ';width:' + width + '"/>')
+							.bind('selectstart', function(event) { return false; })
+							.insertAfter(element),
+					
+				optionlist = $('<div class="multiselect-options"/>').appendTo(select);
+
+			$('option', element).each(function(index, option) {
+				var mouseenter	= function(event) {
+									handleMouseenter(event, index);
+								},
+					mousedown	= function(event) {
+									handleMousedown(event, index);
+								},
+					item		= {
+									option:		$(option),					// original option
+									selected:	$(option).is(':selected'),	// initial state
+									disabled:	$(option).is(':disabled')	// initial state
+								};
+
+				item.container	= $('<div class="multiselect-option"/>')
+									[item.disabled? 'addClass' : 'removeClass']('multiselect-disabled')
+									[item.selected? 'addClass' : 'removeClass']('multiselect-selected')
+									.mousedown(mousedown)
+									.mouseenter(mouseenter)
+									.appendTo(optionlist);
+				item.checkbox	= $('<input type="'+(max <= 1 ? 'radio' : 'checkbox')+'"/>')
+									.prop('disabled', item.disabled)
+									.click(function(event) {
+										$(this).attr('checked', $(option).is(':selected'));
+										return false; })
+									.appendTo(item.container);
+							
+				set_state(item.selected, item, options);
+
+				var text		= item.option.text();
+				if (typeof options.showOption === 'function') {
+					text = options.showOption(text, item.option.val(), index);
+				}
+				$('<span>'+text+'</span>').appendTo(item.container);
+
+				items[index] = item;
+			});
+
+			// Handle form reset
+			$(element).closest('form').bind('reset', function() {
+				// set only this, not actual select?
+				$.each(items, function(index, item) {
+					set_state(item.selected, item, options);
+				});
+			});
+		});
+	};
+})( jQuery );
